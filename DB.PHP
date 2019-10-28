@@ -49,4 +49,11 @@ class DB {
     {
         return $this->runQuery($query, $bindValue)->fetchAll(PDO::FETCH_OBJ);
     }
+
+    // Method utama untuk mengambil isi tabel
+    public function get($tableName)
+    {
+        $query = "SELECT * FROM {$tableName}";
+        return $this->getQuery($query);
+    }
 }

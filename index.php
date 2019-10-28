@@ -13,6 +13,10 @@ $DB = DB::getInstance();
 // $result = $DB->runQuery("SELECT * FROM barang");
 // $tabelBarang = $result->fetchAll(PDO::FETCH_OBJ);
 
+// $tabelBarang = $DB->getQuery("SELECT * FROM barang WHERE id_barang = ?", [3]);
+
+$tabelBarang = $DB->get('barang');
+
 echo "<pre>";
 print_r($tabelBarang);
 echo "</pre>";
