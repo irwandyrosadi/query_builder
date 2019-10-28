@@ -11,6 +11,7 @@ class DB {
     private static $_instance = null;
     private $_pdo;  // menampung object PDO
     private $_stmt; // menampung object PDOStatemnt
+    private $_columnName = "*";
 
     // Constructor untuk pembuatan PDO Object
     public function __construct()
@@ -23,7 +24,7 @@ class DB {
         }
     }
 
-    // Singleton pattern untuk membuat class DB
+    // Singleton pattern for making class DB
     public static function getInstance()
     {
         if (!isset(self::$_instance)) {
@@ -32,7 +33,7 @@ class DB {
         return self::$_instance;
     }
 
-      // Method dasar untuk menjalankan prepared statement query
+      // basic method to run prepared statement query
     public function runQuery($query, $bindValue = []) 
     {
         try {
@@ -44,16 +45,24 @@ class DB {
         return $this->_stmt;
     }
 
-    // Method untuk menampilkan hasil query SELECT sebagai fetchAll (object)
+    // This method is used to show the result from select query as Object
     public function getQuery($query, $bindValue = [])
     {
         return $this->runQuery($query, $bindValue)->fetchAll(PDO::FETCH_OBJ);
     }
 
-    // Method utama untuk mengambil isi tabel
+    // Main method to get the data of table
     public function get($tableName)
     {
-        $query = "SELECT * FROM {$tableName}";
+        $query = "SELECT {$this->_columnName} FROM {$tableName}";
+        $this->_columnName = "*";
         return $this->getQuery($query);
+    }
+
+    // Select Method
+    public function select($columnName)
+    {
+        $this->_columnName = $columnName;
+        return $this;
     }
 }
