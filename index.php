@@ -10,8 +10,8 @@ $DB = DB::getInstance();
 
 // $DB->runQuery($query, $data);
 
-$result = $DB->runQuery("SELECT * FROM barang");
-$tabelBarang = $result->fetchAll(PDO::FETCH_OBJ);
+// $result = $DB->runQuery("SELECT * FROM barang");
+// $tabelBarang = $result->fetchAll(PDO::FETCH_OBJ);
 
 echo "<pre>";
 print_r($tabelBarang);

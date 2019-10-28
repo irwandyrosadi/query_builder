@@ -43,4 +43,10 @@ class DB {
         }
         return $this->_stmt;
     }
+
+    // Method untuk menampilkan hasil query SELECT sebagai fetchAll (object)
+    public function getQuery($query, $bindValue = [])
+    {
+        return $this->runQuery($query, $bindValue)->fetchAll(PDO::FETCH_OBJ);
+    }
 }
