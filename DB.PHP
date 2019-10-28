@@ -9,7 +9,8 @@ class DB {
 
     // Property internal dari class DB
     private static $_instance = null;
-    private $_pdo;
+    private $_pdo;  // menampung object PDO
+    private $_stmt; // menampung object PDOStatemnt
 
     // Constructor untuk pembuatan PDO Object
     public function __construct()
@@ -29,5 +30,17 @@ class DB {
             self::$_instance = new DB();
         }
         return self::$_instance;
+    }
+
+      // Method dasar untuk menjalankan prepared statement query
+    public function runQuery($query, $bindValue = []) 
+    {
+        try {
+            $this->_stmt = $this->_pdo->prepare($query);
+            $this->_stmt->execute($bindValue);
+        } catch (PDOException $e) {
+            die("Koneksi / Query bermasalah: ".$e->getMessage(). " (".$e->getCode().")");
+        }
+        return $this->_stmt;
     }
 }
