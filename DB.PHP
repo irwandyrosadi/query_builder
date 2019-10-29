@@ -12,6 +12,7 @@ class DB {
     private $_pdo;  // menampung object PDO
     private $_stmt; // menampung object PDOStatemnt
     private $_columnName = "*";
+    private $_orderBy    = "";
 
     // Constructor untuk pembuatan PDO Object
     public function __construct()
@@ -54,15 +55,23 @@ class DB {
     // Main method to get the data of table
     public function get($tableName)
     {
-        $query = "SELECT {$this->_columnName} FROM {$tableName}";
-        $this->_columnName = "*";
+    $query = "SELECT {$this->_columnName} FROM {$tableName} {$this->_orderBy}";
+        $this->_columnName  = "*";
+        $this->_orderBy     = "";
         return $this->getQuery($query);
     }
 
-    // Select Method
+    // Select Method to filter db column 
     public function select($columnName)
     {
         $this->_columnName = $columnName;
+        return $this;
+    }
+
+    // ORDER BY method
+    public function orderBy($columnName, $sortType = 'ASC')
+    {
+        $this->_orderBy = "Order By {$columnName} {$sortType}";
         return $this;
     }
 }

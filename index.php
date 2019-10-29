@@ -15,8 +15,7 @@ $DB = DB::getInstance();
 
 // $tabelBarang = $DB->getQuery("SELECT * FROM barang WHERE id_barang = ?", [3]);
 
-$tabelBarang = $DB->select('nama_barang')->get('barang');
-$tabelBarang = $DB->select('nama_barang, harga_barang')->get('barang');
+$tabelBarang = $DB->select('nama_barang, harga_barang')->orderBy('id_barang', 'DESC')->get('barang');
 
 echo "<pre>";
 print_r($tabelBarang);
