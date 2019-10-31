@@ -141,7 +141,7 @@ class DB {
         return true;
     }
 
-    // Delete Method
+    // This method is used to delete data
     public function delete($tableName, $condition)
     {
     $query = "DELETE FROM {$tableName} WHERE {$condition[0]} {$condition[1]} ?";
