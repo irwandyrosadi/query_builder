@@ -12,6 +12,7 @@ class DB {
     private $_pdo;  // menampung object PDO
     private $_columnName = "*";
     private $_orderBy    = "";
+    private $_count      = 0;
 
     // Constructor untuk pembuatan PDO Object
     public function __construct()
@@ -109,12 +110,18 @@ class DB {
     // INSERT Method
     public function insert($tableName, $data)
     {
-        $dataKeys    = array_keys($data);
-        $dataValues  = array_values($data);
-        $placeholder = '('. str_repeat('?,', count($data) -1 ) . '?)';
+        $dataKeys     = array_keys($data);
+        $dataValues   = array_values($data);
+        $placeholder  = '('. str_repeat('?,', count($data) -1 ) . '?)';
 
-        $query = "INSERT INTO {$tableName} (". implode(',' , $dataKeys) . ") VALUES {$placeholder}";
-        $this->runQuery($query, $dataValues);
+        $query        = "INSERT INTO {$tableName} (". implode(',' , $dataKeys) . ") VALUES {$placeholder}";
+        $this->_count = $this->runQuery($query, $dataValues)->rowCount();
+        return true;
+    }
+
+    public function count()
+    {
+        return $this->_count;
     }
 
     
