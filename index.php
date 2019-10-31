@@ -30,9 +30,17 @@ $DB = DB::getInstance();
 // $tabelBarang = $DB->select('nama_barang','id_barang')
 //                   ->getLike('barang', 'nama_barang','%kulkas%');
 
-if ($DB->check('barang', 'id_barang', '4')) {
-    echo "ID barang 4 tersedia";
-}
+// if ($DB->check('barang', 'id_barang', '4')) {
+//     echo "ID barang 4 tersedia";
+// }
+
+$DB->insert('barang', [
+    'nama_barang'   => 'Philips Blender HR 2157',
+    'jumlah_barang' => 11,
+    'harga_barang'  => 629000
+]);
+
+$tabelBarang = $DB->get('barang');
 
 echo "<pre>";
 print_r($tabelBarang);

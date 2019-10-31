@@ -10,7 +10,6 @@ class DB {
     // Property internal dari class DB
     private static $_instance = null;
     private $_pdo;  // menampung object PDO
-    private $_stmt; // menampung object PDOStatemnt
     private $_columnName = "*";
     private $_orderBy    = "";
 
@@ -38,12 +37,12 @@ class DB {
     public function runQuery($query, $bindValue = []) 
     {
         try {
-            $this->_stmt = $this->_pdo->prepare($query);
-            $this->_stmt->execute($bindValue);
+            $stmt = $this->_pdo->prepare($query);
+            $stmt->execute($bindValue);
         } catch (PDOException $e) {
             die("Koneksi / Query bermasalah: ".$e->getMessage(). " (".$e->getCode().")");
         }
-        return $this->_stmt;
+        return $stmt;
     }
 
     // This method is used to show the result from select query as Object
@@ -105,6 +104,17 @@ class DB {
     {
     $query = "SELECT {$columnName} FROM {$tableName} WHERE {$columnName} = ?";
     return $this->runQuery($query,[$dataValues])->rowCount();
+    }
+
+    // INSERT Method
+    public function insert($tableName, $data)
+    {
+        $dataKeys    = array_keys($data);
+        $dataValues  = array_values($data);
+        $placeholder = '('. str_repeat('?,', count($data) -1 ) . '?)';
+
+        $query = "INSERT INTO {$tableName} (". implode(',' , $dataKeys) . ") VALUES {$placeholder}";
+        $this->runQuery($query, $dataValues);
     }
 
     
