@@ -53,12 +53,12 @@ class DB {
     }
 
     // Main method to get the data of table
-    public function get($tableName)
+    public function get($tableName, $condition = "", $bindValue = [])
     {
-    $query = "SELECT {$this->_columnName} FROM {$tableName} {$this->_orderBy}";
+    $query = "SELECT {$this->_columnName} FROM {$tableName} {$condition} {$this->_orderBy}";
         $this->_columnName  = "*";
         $this->_orderBy     = "";
-        return $this->getQuery($query);
+        return $this->getQuery($query, $bindValue);
     }
 
     // Select Method to filter db column 
@@ -74,4 +74,38 @@ class DB {
         $this->_orderBy = "Order By {$columnName} {$sortType}";
         return $this;
     }
+
+    // getWhere Method
+    public function getWhere($tableName, $condition)
+    {
+        $queryCondition = "WHERE {$condition[0]} {$condition[1]} ?";
+        return $this->get($tableName, $queryCondition, [$condition[2]]);
+    }
+
+    // getWhereOnce Method
+    public function getWhereOnce($tableName, $condition)
+    {
+        $result = $this->getWhere($tableName, $condition);
+        if (!empty($result)) {
+            return $result[0];
+        } else {
+            return false;
+        }
+    }
+
+    // getLike Method
+    public function getLike($tableName, $columnLike, $search)
+    {
+        $queryLike = "WHERE {$columnLike} LIKE ?";
+        return $this->get($tableName, $queryLike, [$search]);
+    }
+
+    // Check method
+    public function check($tableName, $columnName, $dataValues)
+    {
+    $query = "SELECT {$columnName} FROM {$tableName} WHERE {$columnName} = ?";
+    return $this->runQuery($query,[$dataValues])->rowCount();
+    }
+
+    
 }

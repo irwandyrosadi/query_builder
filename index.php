@@ -15,7 +15,24 @@ $DB = DB::getInstance();
 
 // $tabelBarang = $DB->getQuery("SELECT * FROM barang WHERE id_barang = ?", [3]);
 
-$tabelBarang = $DB->select('nama_barang, harga_barang')->orderBy('id_barang', 'DESC')->get('barang');
+// $tabelBarang = $DB->select('nama_barang, harga_barang')->orderBy('id_barang', 'ASC')->get('barang');
+
+
+// $tabelBarang = $DB->select('harga_barang, nama_barang')
+//                   ->orderBy('harga_barang', 'DESC')
+//                   ->get('barang', 'WHERE harga_barang > ?', [7000000]);
+
+// $tabelBarang = $DB->select('nama_barang, jumlah_barang')
+//                   ->getWhere('barang',['id_barang','=',5]);
+
+// $tabelBarang = $DB->getWhereOnce('barang',['harga_barang','>',5000000]);
+
+// $tabelBarang = $DB->select('nama_barang','id_barang')
+//                   ->getLike('barang', 'nama_barang','%kulkas%');
+
+if ($DB->check('barang', 'id_barang', '4')) {
+    echo "ID barang 4 tersedia";
+}
 
 echo "<pre>";
 print_r($tabelBarang);
