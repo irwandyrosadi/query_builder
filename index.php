@@ -2,6 +2,93 @@
 require 'DB.php';
 $DB = DB::getInstance();
 
+// $result = $DB->insert('user', [
+//             'username'  => 'rina',
+//             'password'  => '123456',
+//             'email'     => 'rinapunya@yahoo.com'
+//         ]);
+
+// if ($result) {
+//     echo "Terdapat ".$DB->count(). " data yang diinput";
+// }
+
+// $tabelUser = $DB->get('user');
+
+// $tabelUser = $DB->select('username, email')->get('user');
+
+// echo "<pre>";
+// print_r($tabelUser);
+// echo "</pre>";
+
+// $result = $DB->update('user',
+//                      ['email' => 'alex999@gmail.com'],
+//                      ['username','=','alex']
+//                     );
+
+// if ($result) {
+//     echo "Terdapat ".$DB->count(). " data yang diinput";
+// }
+
+// $tabelUser = $DB->getWhereOnce('user', ['username','=','alex']);
+
+// echo $tabelUser->username ." | ". $tabelUser->email;
+
+// $tabelUser = $DB->delete('user', ['username', '=', 'alex']);
+
+// if ($tabelUser) {
+//     echo "Terdapat ".$DB->count(). " data yang dihapus";
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // $result = $DB->runQuery('SELECT * FROM barang WHERE id_barang = ?', [4]);
 // $tabelBarang = $result->fetchAll(PDO::FETCH_OBJ);
 
@@ -34,14 +121,17 @@ $DB = DB::getInstance();
 //     echo "ID barang 4 tersedia";
 // }
 
-$DB->insert('barang', [
-    'nama_barang'   => 'Philips Blender HR 2157',
-    'jumlah_barang' => 11,
-    'harga_barang'  => 629000
-]);
+// $result = $DB->update('barang',
+//             ['nama_barang'   => 'Laptop ASUS ROG GL503GE',
+//              'harga_barang'  => 17999000],
+//             ['id_barang','=',3]);
 
-$tabelBarang = $DB->get('barang');
+// $result = $DB->delete('barang',['id_barang', '<', 5]);
 
-echo "<pre>";
-print_r($tabelBarang);
-echo "</pre>";
+// if ($result) {
+//     echo "Terdapat ".$DB->count()." data yang dihapus";
+// }
+
+// echo "<pre>";
+// print_r($tabelBarang);
+// echo "</pre>";

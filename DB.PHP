@@ -24,7 +24,7 @@ class DB {
             die("Koneksi / Query bermasalah: ".$e->getMessage(). " (".$e->getCode().")");
         }
     }
-
+        
     // Singleton pattern for making class DB
     public static function getInstance()
     {
@@ -124,5 +124,29 @@ class DB {
         return $this->_count;
     }
 
+    // Update Method
+    public function update($tableName, $data, $condition)
+    {
+        $query = "UPDATE {$tableName} SET ";
+        foreach ($data as $key => $value) {
+            $query .= "$key = ?, ";
+        }
+        $query  = substr($query,0,-2);
+        $query .= " WHERE {$condition[0]} {$condition[1]} ?";
+        
+        $dataValues = array_values($data);
+        array_push($dataValues, $condition[2]);
+        
+        $this->_count = $this->runQuery($query, $dataValues)->rowCount();
+        return true;
+    }
+
+    // Delete Method
+    public function delete($tableName, $condition)
+    {
+    $query = "DELETE FROM {$tableName} WHERE {$condition[0]} {$condition[1]} ?";
+    $this->_count = $this->runQuery($query, [$condition[2]])->rowCount();
+    return true;
+    }
     
 }
